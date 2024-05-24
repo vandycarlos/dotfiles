@@ -1,0 +1,6 @@
+container_command=""
+container_manager="podman"
+container_manager_additional_flags=""
+container_name="default"
+container_name_default="default"
+non_interactive=1

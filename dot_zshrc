@@ -1,0 +1,58 @@
+
+[[ $- != *i* ]] && return
+
+command -v direnv >/dev/null && eval "$(direnv hook zsh)"
+
+P10K_CACHE="$HOME/.cache/p10k-instant-prompt-carlos.zsh"
+[ -r "$P10K_CACHE" ] && source "$P10K_CACHE"
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+HISTFILE=~/.cache/zsh_history
+HISTSIZE=20000
+SAVEHIST=$HISTSIZE
+
+WORDCHARS="*?!_-.[]~=&;#$%^(){}<>"
+
+# Appends every command to the history file once it is executed
+# setopt inc_append_history
+
+# Reloads the history whenever you use it
+setopt share_history
+
+ZSH_COMPDUMP=$HOME/.cache/zsh-compdump
+
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' completer _complete
+zstyle ':completion:*' menu select
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$HOME/.cache/zsh/.zcompcache"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+fpath=("$ZSH/functions" "$ZSH/completions" $fpath)
+fpath=(${ASDF_DIR}/completions $fpath)
+
+autoload -Uz colors && colors
+autoload -Uz compinit && compinit -u
+
+source $ZSH_CUSTOM/themes/powerlevel10k/powerlevel10k.zsh-theme
+source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZSH_CUSTOM/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSH_CUSTOM/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# eval "$(starship init zsh)"
+
+setopt correct
+export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color?
+ [Yes, No, Abort, Edit] "
+
+bindkey -s "^A" 'clear^M'
+
+source $HOME/Config/shell/functions.sh
+
+source $HOME/Config/shell/aliases.sh
+
+source $HOME/Config/shell/key-bindings.zsh
+
+source $HOME/Config/shell/p10k.zsh
+

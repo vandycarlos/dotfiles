@@ -1,0 +1,6 @@
+# shellcheck disable=SC1091
+[ -e "/run/.containerenv" ] && source "$HOME/Config/shell/dev-env.sh"
+
+if [ -f ~/.bashrc ]; then
+  source "$HOME/.bashrc"
+fi
